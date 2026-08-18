@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+data/mathlens.db
+models/*.pkl
+research/evaluation_report.json

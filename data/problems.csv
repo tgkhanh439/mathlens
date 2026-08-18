@@ -1,0 +1,16 @@
+problem_id,topic,subtopic,difficulty,question,correct_answer,correct_solution
+P001,Đại số,Phân phối,1,Khai triển và rút gọn: 3(x+2),3x+6,3(x+2) | 3x+6
+P002,Đại số,Phân phối,1,Bỏ ngoặc và rút gọn: 10-(x+4),6-x,10-(x+4) | 10-x-4 | 6-x
+P003,Đại số,Hằng đẳng thức,2,Khai triển: (x+2)^2,x^2+4x+4,(x+2)^2 | x^2+4x+4
+P004,Đại số,Hằng đẳng thức,2,Khai triển: (x-3)^2,x^2-6x+9,(x-3)^2 | x^2-6x+9
+P005,Đại số,Phương trình bậc nhất,1,Giải phương trình: x+3=5,x=2,x+3=5 | x=5-3 | x=2
+P006,Đại số,Phương trình bậc nhất,2,Giải phương trình: 2x+4=10,x=3,2x+4=10 | 2x=6 | x=3
+P007,Đại số,Phương trình bậc nhất,2,Giải phương trình: 3(x+2)=12,x=2,3(x+2)=12 | 3x+6=12 | 3x=6 | x=2
+P008,Đại số,Phương trình bậc nhất,2,Giải phương trình: -x+2=5,x=-3,-x+2=5 | -x=3 | x=-3
+P009,Đại số,Phân thức,2,Rút gọn: (3x+6)/3,x+2,(3x+6)/3 | 3(x+2)/3 | x+2
+P010,Đại số,Phân thức,3,Tính: 1/x+1/y,(x+y)/(x*y),1/x+1/y | (y+x)/(x*y)
+P011,Đại số,Lũy thừa,2,Rút gọn: x^2*x^3,x^5,x^2*x^3 | x^5
+P012,Đại số,Phân tích nhân tử,2,Phân tích thành nhân tử: x^2-9,(x-3)*(x+3),x^2-9 | (x-3)(x+3)
+P013,Đại số,Phương trình bậc hai,3,Giải phương trình: x^2=9,x=3 hoặc x=-3,x^2=9 | x^2-9=0 | (x-3)(x+3)=0 | x=3 hoặc x=-3
+P014,Đại số,Phương trình bậc hai,3,Giải phương trình: x^2=3x,x=0 hoặc x=3,x^2=3x | x^2-3x=0 | x(x-3)=0 | x=0 hoặc x=3
+P015,Đại số,Phương trình tích,3,Giải phương trình: (x-1)(x-2)=6,x=4 hoặc x=-1,(x-1)(x-2)=6 | x^2-3x+2=6 | x^2-3x-4=0 | (x-4)(x+1)=0 | x=4 hoặc x=-1

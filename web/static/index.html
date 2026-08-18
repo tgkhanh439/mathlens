@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MathLens · Chẩn đoán lỗi tư duy trong lời giải Đại số</title>
+<meta name="description" content="Nhập lời giải theo từng bước, hệ thống chỉ ra bước sai đầu tiên và dạng hiểu nhầm đằng sau nó. Enter a solution step by step and see the first invalid step and the misconception behind it." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="/">
+      <span class="brand-mark">M</span>
+      <span class="brand-text">
+        <strong>MathLens</strong>
+        <em data-i18n="tagline"></em>
+      </span>
+    </a>
+
+    <div class="masthead-right">
+      <nav class="tabs" role="tablist">
+        <button class="tab is-active" data-view="grade" data-i18n="tab.grade" role="tab"></button>
+        <button class="tab" data-view="taxonomy" data-i18n="tab.taxonomy" role="tab"></button>
+        <button class="tab" data-view="profile" data-i18n="tab.profile" role="tab"></button>
+      </nav>
+      <div class="lang" role="group" aria-label="Language">
+        <button class="lang-btn is-active" data-lang="vi">VI</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============================ GRADING ============================ -->
+  <section class="view is-active" id="view-grade">
+    <div class="workspace">
+
+      <div class="panel panel-input">
+        <div class="panel-head">
+          <span class="eyebrow" data-i18n="step1.eyebrow"></span>
+          <h2 data-i18n="step1.title"></h2>
+        </div>
+
+        <label class="field-label" for="problem" data-i18n="label.problem"></label>
+        <select id="problem" class="select"></select>
+        <p class="question" id="question-text" hidden></p>
+
+        <label class="field-label" for="solution" data-i18n="label.solution"></label>
+        <textarea id="solution" class="sheet-input" spellcheck="false" rows="9"
+          placeholder="3(x+2)=12&#10;3x+2=12&#10;3x=10"></textarea>
+        <p class="hint" data-i18n-html="hint.syntax"></p>
+
+        <div class="actions">
+          <button id="btn-grade" class="btn btn-primary" data-i18n="btn.grade"></button>
+          <button id="btn-clear" class="btn btn-quiet" data-i18n="btn.clear"></button>
+        </div>
+
+        <div class="samples">
+          <span class="field-label" data-i18n="label.samples"></span>
+          <button class="chip" data-sample="3(x+2)=12&#10;3x+2=12&#10;3x=10" data-i18n="sample.dist"></button>
+          <button class="chip" data-sample="x^2=3x&#10;x=3" data-i18n="sample.lostroot"></button>
+          <button class="chip" data-sample="(x+2)^2&#10;x^2+4" data-i18n="sample.middle"></button>
+          <button class="chip" data-sample="2x+4=10&#10;2x=6&#10;x=3" data-i18n="sample.correct"></button>
+        </div>
+      </div>
+
+      <div class="panel panel-marking">
+        <div class="panel-head">
+          <span class="eyebrow" data-i18n="step2.eyebrow"></span>
+          <h2 data-i18n="step2.title"></h2>
+        </div>
+
+        <div class="marking-sheet" id="marking-sheet"></div>
+
+        <div class="verdict" id="verdict" hidden></div>
+
+        <section class="diagnostic" id="diagnostic" hidden>
+          <span class="eyebrow" data-i18n="step3.eyebrow"></span>
+          <h3 data-i18n="step3.title"></h3>
+          <p id="diagnostic-question"></p>
+          <div class="diagnostic-row">
+            <input id="diagnostic-answer" class="input" data-i18n-attr="placeholder:diagnostic.placeholder" />
+            <button id="btn-diagnostic" class="btn btn-primary" data-i18n="btn.check"></button>
+          </div>
+          <p class="diagnostic-result" id="diagnostic-result" hidden></p>
+        </section>
+
+        <details class="evidence" id="evidence" hidden>
+          <summary data-i18n="evidence.summary"></summary>
+          <ul id="evidence-list"></ul>
+          <p class="footnote" data-i18n="evidence.footnote"></p>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================ TAXONOMY ============================ -->
+  <section class="view" id="view-taxonomy">
+    <div class="page-head">
+      <span class="eyebrow">Taxonomy v0</span>
+      <h2 data-i18n="taxonomy.title"></h2>
+      <p data-i18n-html="taxonomy.intro"></p>
+      <input id="taxonomy-filter" class="input" data-i18n-attr="placeholder:taxonomy.filter" />
+    </div>
+    <div class="taxonomy-grid" id="taxonomy-grid"></div>
+  </section>
+
+  <!-- ============================ PROFILE ============================ -->
+  <section class="view" id="view-profile">
+    <div class="page-head">
+      <span class="eyebrow" data-i18n="profile.eyebrow"></span>
+      <h2 data-i18n="profile.title"></h2>
+      <p data-i18n="profile.intro"></p>
+    </div>
+    <div class="stats" id="profile-stats"></div>
+    <div class="profile-table" id="profile-table"></div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p data-i18n="footer"></p>
+</footer>
+
+<script src="/static/i18n.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>
