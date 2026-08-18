@@ -1,0 +1,6 @@
+# Everything above, plus the tools used for the Streamlit debug view, the ML
+# fallback layer and offline evaluation. Not needed to serve the site.
+-r requirements.txt
+pandas>=2.0
+scikit-learn>=1.3
+streamlit>=1.30

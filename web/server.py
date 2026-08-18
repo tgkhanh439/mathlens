@@ -12,12 +12,12 @@ switching language in the interface never needs another round trip.
 
 from __future__ import annotations
 
+import csv
 import re
 import sys
 from pathlib import Path
 from typing import Optional
 
-import pandas as pd
 import sympy as sp
 from fastapi import Cookie, FastAPI, Response
 from fastapi.responses import FileResponse
@@ -86,8 +86,11 @@ def index() -> FileResponse:
 
 @app.get("/api/problems")
 def problems() -> list[dict]:
-    df = pd.read_csv(PROBLEMS_PATH)
-    return df[["problem_id", "topic", "subtopic", "difficulty", "question"]].to_dict("records")
+    """Problem bank. Read with the csv module so the web tier stays free of pandas,
+    which matters on hosts that cap free instances at 512 MB."""
+    fields = ("problem_id", "topic", "subtopic", "difficulty", "question")
+    with open(PROBLEMS_PATH, newline="", encoding="utf-8") as f:
+        return [{k: row[k] for k in fields} for row in csv.DictReader(f)]
 
 
 @app.get("/api/taxonomy")

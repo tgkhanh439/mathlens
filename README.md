@@ -1,3 +1,12 @@
+---
+title: MathLens
+emoji: 🔍
+colorFrom: blue
+colorTo: purple
+sdk: docker
+app_port: 7860
+---
+
 # MathLens v0.1
 
 A step-by-step analyser for school algebra. It locates the **first invalid step**
@@ -14,9 +23,12 @@ Code comments and documentation are in English; taxonomy content exists in both.
 ## Run it
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 uvicorn web.server:app --reload
 ```
+
+`requirements.txt` holds only what the running site needs, so free hosting tiers can
+install it. `requirements-dev.txt` adds the Streamlit view, the ML layer and evaluation.
 
 Open http://localhost:8000
 
@@ -24,8 +36,8 @@ Three screens: **Grade** (enter a solution, read the marking sheet), **Error
 catalogue** (the taxonomy), **Profile** (per-session error statistics).
 
 Deployment is covered in `DEPLOY.md`. Short version: GitHub Pages cannot host this
-because the maths runs server side; use Hugging Face Spaces with the included
-`Dockerfile`, and no domain purchase is needed.
+because the maths runs server side; deploy to Render's free tier from the GitHub
+repository, and no domain purchase is needed.
 
 ```bash
 docker build -t mathlens . && docker run -p 8000:8000 mathlens

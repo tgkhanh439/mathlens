@@ -7,6 +7,7 @@ COPY . .
 
 # Hugging Face Spaces dung cong 7860, Render va Railway truyen bien PORT.
 ENV PORT=7860
+# Nhieu nen tang chi cho ghi vao /tmp.
 ENV MATHLENS_DB=/tmp/mathlens.db
 
 EXPOSE 7860
